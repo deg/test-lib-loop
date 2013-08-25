@@ -1,14 +1,14 @@
 # test-lib-loop
 
-A Clojure library designed to ... well, that part is up to you.
+Simple reproducible test case showing problem with `:libs [""]` in `:cljsbuild`.
 
-## Usage
+The use of `:libs [""]` is mandated by the [pprng
+library](https://github.com/cemerick/pprng/) but exhibits the
+following problem:
 
-FIXME
+When two (or more?) builds are specified to :cljsbuild, then `lein
+cljsbuild auto` loops forever, building first one then the other.
 
-## License
+To demonstrate, do `lein do clean, cljsbuild clean, cljsbuild auto` in this project.
 
-Copyright © 2013 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+Remove the `:libs [""]` lines from `project.clj`, and the problem goes away.
